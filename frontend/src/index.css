@@ -1,0 +1,199 @@
+/* ─── Google Font ──────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@import "tailwindcss";
+
+/* ─── Design Tokens (TW v4 theme) ─────────────────────────── */
+@theme {
+  --color-primary: #3B4CCA;
+  --color-primary-light: #5B6AE6;
+  --color-primary-dark: #2A3AA0;
+  --color-accent: #F5C542;
+  --color-accent-dark: #E0B030;
+  --color-surface: #F7F8FC;
+  --color-surface-alt: #FFFFFF;
+  --color-sidebar: #3B4CCA;
+  --color-sidebar-hover: #4D5ED6;
+  --color-text-primary: #1A1D2E;
+  --color-text-secondary: #6B7280;
+  --color-text-muted: #9CA3AF;
+  --color-border: #E5E7EB;
+  --color-border-light: #F0F1F5;
+  --color-error: #EF4444;
+  --color-error-light: #FEE2E2;
+  --color-warning: #F59E0B;
+  --color-warning-light: #FEF3C7;
+  --color-success: #10B981;
+  --color-success-light: #D1FAE5;
+  --color-info: #3B82F6;
+  --color-info-light: #DBEAFE;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* ─── Base ─────────────────────────────────────────────────── */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  font-family: var(--font-sans);
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── TipTap Editor ────────────────────────────────────────── */
+.tiptap {
+  outline: none;
+  min-height: 400px;
+  padding: 1.5rem;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--color-text-primary);
+}
+
+.tiptap p {
+  margin-bottom: 0.5rem;
+}
+
+.tiptap p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  color: var(--color-text-muted);
+  pointer-events: none;
+  height: 0;
+}
+
+/* ─── Normalization Mark (red wavy underline) ──────────────── */
+.normalization-mark {
+  text-decoration: underline wavy var(--color-error);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  position: relative;
+  border-radius: 2px;
+  transition: background 0.15s ease;
+}
+
+.normalization-mark:hover {
+  background: var(--color-error-light);
+}
+
+/* ─── Grammar Mark (blue wavy underline) ───────────────────── */
+.grammar-mark {
+  text-decoration: underline wavy var(--color-info);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  position: relative;
+  border-radius: 2px;
+  transition: background 0.15s ease;
+}
+
+.grammar-mark:hover {
+  background: var(--color-info-light);
+}
+
+/* ─── Tooltip ──────────────────────────────────────────────── */
+.suggestion-tooltip {
+  position: absolute;
+  z-index: 100;
+  background: var(--color-text-primary);
+  color: white;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  pointer-events: none;
+  white-space: nowrap;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  transform: translateY(-8px);
+  animation: tooltip-fade-in 0.15s ease;
+}
+
+.suggestion-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: var(--color-text-primary) transparent transparent transparent;
+}
+
+@keyframes tooltip-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(-8px);
+  }
+}
+
+/* ─── Scrollbar ────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-text-muted);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-secondary);
+}
+
+/* ─── Animations ───────────────────────────────────────────── */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(16px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.8); opacity: 1; }
+  100% { transform: scale(1.4); opacity: 0; }
+}
+
+@keyframes score-count-up {
+  from { opacity: 0; transform: scale(0.5); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease both;
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.3s ease both;
+}
+
+/* ─── Stat Card Hover ──────────────────────────────────────── */
+.stat-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(59, 76, 202, 0.1);
+}
+
+/* ─── Score Ring ────────────────────────────────────────────── */
+.score-ring {
+  transition: stroke-dashoffset 1s ease;
+}
